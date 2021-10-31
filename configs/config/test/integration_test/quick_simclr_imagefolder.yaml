@@ -1,7 +1,8 @@
 # @package _global_
 config:
   VERBOSE: False
-  LOG_FREQUENCY: 2
+#  LOG_FREQUENCY: 2
+  LOG_FREQUENCY: 100
   TEST_ONLY: False
   TEST_MODEL: False
   SEED_VALUE: 0
@@ -12,11 +13,13 @@ config:
       PERF_STAT_FREQUENCY: 10
       ROLLING_BTIME_FREQ: 5
   DATA:
-    NUM_DATALOADER_WORKERS: 5
+    NUM_DATALOADER_WORKERS: 8
+#    NUM_DATALOADER_WORKERS: 5
     TRAIN:
       DATA_SOURCES: [disk_folder]
       DATASET_NAMES: [imagenet1k_folder]
-      BATCHSIZE_PER_REPLICA: 32
+#      BATCHSIZE_PER_REPLICA: 32
+      BATCHSIZE_PER_REPLICA: 64
       LABEL_TYPE: sample_index    # just an implementation detail. Label isn't used
       TRANSFORMS:
         - name: ImgReplicatePil
@@ -38,7 +41,7 @@ config:
       COLLATE_FUNCTION: simclr_collator
       MMAP_MODE: True
       COPY_TO_LOCAL_DISK: False
-      DATA_LIMIT: 500
+#      DATA_LIMIT: 500
       DROP_LAST: True
       COPY_DESTINATION_DIR: "/tmp/imagenet1k"
   TRAINER:
@@ -77,7 +80,8 @@ config:
       weight_decay: 0.000001
       momentum: 0.9
       nesterov: False
-      num_epochs: 2
+#      num_epochs: 2
+      num_epochs: 100
       regularize_bn: False
       regularize_bias: True
       param_schedulers:
